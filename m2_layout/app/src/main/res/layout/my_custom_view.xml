@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -10,46 +12,37 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@color/black"
-        android:layout_margin="@dimen/margin_view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/gray_layout"/>
+        android:layout_marginEnd="@dimen/margin_view"/>
 
     <TextView
         android:id="@+id/top_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_view"
-        android:layout_marginEnd="@dimen/margin_view"
+        android:layout_marginTop="@dimen/margin_view"
+        android:layout_toEndOf="@id/black_layout"
         android:ellipsize="end"
         android:gravity="bottom"
         android:lines="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_text"
-        app:layout_constraintStart_toEndOf="@id/black_layout"
-        app:layout_constraintTop_toTopOf="@id/black_layout"
-        tools:text="Верхняя строка" />
+        tools:text="Верхняя строка"/>
 
     <TextView
         android:id="@+id/bottom_text"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/top_text"
+        android:layout_toEndOf="@id/black_layout"
+        android:layout_marginTop="@dimen/margin_view"
+        android:layout_marginBottom="@dimen/margin_view"
         android:gravity="bottom"
         android:lines="1"
         android:ellipsize="end"
-        tools:text="Нижняя строка"
-        app:layout_constraintTop_toBottomOf="@id/top_text"
-        app:layout_constraintStart_toStartOf="@id/top_text"
-        app:layout_constraintEnd_toEndOf="@id/top_text"
-        app:layout_constraintBottom_toBottomOf="@id/black_layout"/>
+        tools:text="Нижняя строка"/>
 
     <FrameLayout
         android:id="@+id/gray_layout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@android:color/darker_gray"
-        android:layout_marginTop="@dimen/margin_view"
-        app:layout_constraintTop_toBottomOf="@id/black_layout"
-        app:layout_constraintStart_toStartOf="@id/black_layout"
-        app:layout_constraintEnd_toEndOf="@id/top_text"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@id/black_layout"
+        android:layout_marginTop="@dimen/margin_view"/>
+</RelativeLayout>
