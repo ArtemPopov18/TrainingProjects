@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var timer: CountDownTimer? = null
     private val secondToMilliseconds = 1000
+    private var second: Long = 60
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomStart.setOnClickListener {
             if (binding.bottomStart.text == "Start") {
-                startCountDownTimer((binding.slider.value).toLong() * secondToMilliseconds)
+                startCountDownTimer(second * secondToMilliseconds)
                 binding.bottomStart.text = "Stop"
                 binding.slider.isEnabled = false
             } else {
@@ -41,10 +42,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun clickSlider(slider: Slider) {
+    private fun clickSlider(slider: Slider) {
         binding.scoreboardTime.text = (slider.value.toInt()).toString()
         binding.progressBarTime.max = slider.value.toInt()
         binding.progressBarTime.progress = slider.value.toInt()
+        second = binding.slider.value.toLong()
     }
 
     private fun startCountDownTimer(sliderValue: Long) {
@@ -53,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTick(p0: Long) {
                 binding.scoreboardTime.text = (p0 / secondToMilliseconds).toString()
                 binding.progressBarTime.progress = (p0 / secondToMilliseconds).toInt()
+                second = (p0 / secondToMilliseconds)
             }
 
             override fun onFinish() {
