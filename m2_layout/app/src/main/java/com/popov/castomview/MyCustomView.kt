@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.popov.castomview.databinding.MyCustomViewBinding
 
 class MyCustomView
@@ -11,12 +12,16 @@ class MyCustomView
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    val binding = MyCustomViewBinding.inflate(LayoutInflater.from(context))
+//    val binding = MyCustomViewBinding.inflate(LayoutInflater.from(context))
+    val binding: MyCustomViewBinding
 
     init {
-        addView(binding.root)
+        val inflater = LayoutInflater.from(context)
+        inflater.inflate(R.layout.my_custom_view, this, true)
+        binding = MyCustomViewBinding.bind(this)
+//        addView(binding.root)
     }
 
     fun setTextTop(text: String) {

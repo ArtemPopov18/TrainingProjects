@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.myCustomView.setTextTop("Верхняя строка")
-        binding.myCustomView.setTextBottom("Нижняя строка")
+        binding.my.setTextTop("Верхняя строка")
+        binding.my.setTextBottom("Нижняя строка")
     }
 }
