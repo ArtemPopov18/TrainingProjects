@@ -34,8 +34,6 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomStart.text = "Stop"
                 binding.slider.isEnabled = false
             } else {
-                binding.bottomStart.text = "Start"
-                binding.slider.isEnabled = true
                 timer?.onFinish()
                 timer?.cancel()
             }
