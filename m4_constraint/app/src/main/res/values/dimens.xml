@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginAllView">16dp</dimen>
+    <dimen name="dimensions_button_play">80dp</dimen>
+    <dimen name="dimensions_button_side">40dp</dimen>
+</resources>
