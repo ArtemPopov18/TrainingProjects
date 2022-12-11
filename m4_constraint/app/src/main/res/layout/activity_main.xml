@@ -13,7 +13,7 @@
         android:src="@drawable/simpsons"
         android:scaleType="fitXY"
         app:layout_constraintDimensionRatio="16:9"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/marginAllView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,9 +21,9 @@
 
     <ImageButton
         android:id="@+id/button_rewind"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="@dimen/dimensions_button_side"
+        android:layout_height="@dimen/dimensions_button_side"
+        android:layout_marginEnd="@dimen/marginAllView"
         android:background="@color/white"
         android:src="@drawable/first_page_48px"
         app:layout_constraintTop_toTopOf="@id/button_play"
@@ -32,8 +32,8 @@
 
     <ImageButton
         android:id="@+id/button_play"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="@dimen/dimensions_button_play"
+        android:layout_height="@dimen/dimensions_button_play"
         android:background="@color/white"
         android:src="@drawable/play_circle_48px"
         app:layout_constraintStart_toStartOf="@id/albums_cover"
@@ -42,11 +42,11 @@
 
     <ImageButton
         android:id="@+id/button_flash_forward"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/dimensions_button_side"
+        android:layout_height="@dimen/dimensions_button_side"
         android:src="@drawable/last_page_48px"
         android:background="@color/white"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/marginAllView"
         app:layout_constraintTop_toTopOf="@id/button_play"
         app:layout_constraintBottom_toBottomOf="@id/button_play"
         app:layout_constraintStart_toEndOf="@id/button_play" />
@@ -56,8 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Исполнитель"
-        android:text="The Beatles"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/marginAllView"
         app:layout_constraintTop_toBottomOf="@id/button_play"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/text_composition_name"
@@ -68,8 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Наименование композиции"
-        android:text="Abbey road"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/marginAllView"
         app:layout_constraintTop_toBottomOf="@id/text_performer"
         app:layout_constraintEnd_toEndOf="@id/text_performer"
         app:layout_constraintBottom_toBottomOf="parent"

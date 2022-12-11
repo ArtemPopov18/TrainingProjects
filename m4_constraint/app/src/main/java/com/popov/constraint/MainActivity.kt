@@ -11,5 +11,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.textPerformer.text = "The Beatles"
+        binding.textCompositionName.text = "Abbey road"
     }
 }
