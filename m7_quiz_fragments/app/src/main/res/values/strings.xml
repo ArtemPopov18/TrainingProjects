@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">QUIZ-Android</string>
+    <string name="text_button_continue">Продолжить</string>
+    <string name="text_button_start_over">Start over</string>
+    <string name="text_button_back">back</string>
+    <string name="text_button_send">send</string>
+</resources>
