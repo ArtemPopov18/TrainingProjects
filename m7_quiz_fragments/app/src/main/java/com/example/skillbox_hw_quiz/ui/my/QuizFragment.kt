@@ -30,7 +30,6 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
             addTextViewAndRadioGroup(QuizStorage.getQuiz(QuizStorage.Locale.En))
         }
 
-
         binding.buttonBack.setOnClickListener {
             findNavController().popBackStack()
         }

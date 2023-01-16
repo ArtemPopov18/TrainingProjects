@@ -3,6 +3,7 @@ package com.example.skillbox_hw_quiz.ui.my
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.skillbox_hw_quiz.R
@@ -20,6 +21,13 @@ class ResultsFragment : Fragment(R.layout.fragment_results) {
         const val ARG_LIST_RESULTS = "results"
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigate(R.id.action_resultsFragment_to_rootFragment)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentResultsBinding.bind(view)
@@ -35,6 +43,7 @@ class ResultsFragment : Fragment(R.layout.fragment_results) {
         binding.buttonStartOver.setOnClickListener {
             findNavController().popBackStack()
         }
+
     }
 
     fun addTextView(list: Quiz) {
