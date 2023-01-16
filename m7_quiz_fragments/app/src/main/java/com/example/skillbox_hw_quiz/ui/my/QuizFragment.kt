@@ -53,24 +53,24 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
             val rg = RadioGroup(requireContext())
             rg.id = numberRadioGroup
             rg.orientation = RadioGroup.VERTICAL
+            rg.setOnClickListener {
+                rg.clearCheck()
+            }
+
             it.answers.forEach {
                 val rb = RadioButton(requireContext())
                 rb.id = numberRadioButton
                 rg.addView(rb)
                 rb.text = it
-//                rb.setOnClickListener {
-//
-////                    listBundle.add(rg.id, rb.id)
-//
-//                }
-                numberRadioButton = +1
-            }
-            rg.setOnCheckedChangeListener { _, i ->
-                addListBundle(rg.id, i)
-                Toast.makeText(activity, "$listBundle", Toast.LENGTH_SHORT).show()
+                rb.setOnClickListener {
+                    Toast.makeText(activity, "${rg.id} ${rb.id}", Toast.LENGTH_SHORT).show()
+                    addListBundle(rg.id, rb.id)
+                }
+                numberRadioButton += 1
             }
             binding.scrollView.addView(rg)
-            numberRadioGroup = +1
+            numberRadioButton = 0
+            numberRadioGroup += 1
         }
     }
 
