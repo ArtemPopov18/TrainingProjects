@@ -44,7 +44,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
 
     fun addTextViewAndRadioGroup(list: Quiz) {
         var numberRadioGroup = 0
-        var numberRadioButton = 0
+        var numberRadioButton = 10
         list.questions.forEach {
             val textView = TextView(requireContext())
             textView.text = it.question
@@ -53,9 +53,6 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
             val rg = RadioGroup(requireContext())
             rg.id = numberRadioGroup
             rg.orientation = RadioGroup.VERTICAL
-            rg.setOnClickListener {
-                rg.clearCheck()
-            }
 
             it.answers.forEach {
                 val rb = RadioButton(requireContext())
@@ -69,7 +66,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
                 numberRadioButton += 1
             }
             binding.scrollView.addView(rg)
-            numberRadioButton = 0
+            numberRadioButton = 10
             numberRadioGroup += 1
         }
     }

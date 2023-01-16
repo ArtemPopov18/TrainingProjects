@@ -49,7 +49,7 @@ class ResultsFragment : Fragment(R.layout.fragment_results) {
     fun addTextView(list: Quiz) {
         list.questions.forEachIndexed { index, question ->
             val textView = TextView(requireContext())
-            textView.text = question.feedback[listResults[index]]
+            textView.text = question.feedback[listResults[index] - 10]
             binding.scrollView.addView(textView)
     }
 }
