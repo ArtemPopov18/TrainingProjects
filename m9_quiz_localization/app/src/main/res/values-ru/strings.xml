@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Коннтрольный опрос-Андроид</string>
+    <string name="text_button_continue">Продолжить</string>
+    <string name="text_button_start_over">Начать сначала</string>
+    <string name="text_button_back">Назад</string>
+    <string name="text_button_send">Отправлять</string>
+    <string name="date_picker">Выбрать дату</string>
+    <string name="choose_the_date_dialog_title">Выберите дату рождения</string>
+</resources>

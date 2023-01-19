@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">QUIZ-Android</string>
+    <string name="text_button_continue">Сontinue</string>
+    <string name="text_button_start_over">Start over</string>
+    <string name="text_button_back">Back</string>
+    <string name="text_button_send">Send</string>
+    <string name="date_picker">Date Picker</string>
+    <string name="choose_the_date_dialog_title">Select date of birth</string>
+</resources>
