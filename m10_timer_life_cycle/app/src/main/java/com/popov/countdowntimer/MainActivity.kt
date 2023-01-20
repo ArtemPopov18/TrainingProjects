@@ -8,14 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.slider.Slider
 import com.popov.countdowntimer.databinding.ActivityMainBinding
 
-private const val TAG = "MainActivity"
-private const val KEY_TEXT_BUTTON = "key_text_button"
-private const val KEY_SLIDER_ISENABLED = "key_slider_isEnabled"
-private const val KEY_SECOND = "key_SECOND"
-private const val KEY_TEXT_TIMER = "key_text_timer"
-private const val KEY_BAR_TIME_MAX = "key_bar_time_max"
-private const val KEY_BAR_TIME_PROGRESS = "key_bar_time_progress"
-
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var timer: CountDownTimer? = null
@@ -38,14 +30,14 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             binding.bottomStart.text = savedInstanceState.getString(KEY_TEXT_BUTTON)
             binding.progressBarTime.max = savedInstanceState.getInt(KEY_BAR_TIME_MAX)
-            if (binding.bottomStart.text == "Stop"){
+            if (binding.bottomStart.text == "Stop") {
                 binding.slider.isEnabled = savedInstanceState.getBoolean(KEY_SLIDER_ISENABLED)
                 second = savedInstanceState.getLong(KEY_SECOND)
                 startCountDownTimer(second * secondToMilliseconds)
-            }else{
+            } else {
                 binding.scoreboardTime.text = savedInstanceState.getString(KEY_TEXT_TIMER)
                 binding.progressBarTime.progress = savedInstanceState.getInt(KEY_BAR_TIME_PROGRESS)
             }
@@ -101,5 +93,15 @@ class MainActivity : AppCompatActivity() {
                 binding.slider.isEnabled = true
             }
         }.start()
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
+        private const val KEY_TEXT_BUTTON = "key_text_button"
+        private const val KEY_SLIDER_ISENABLED = "key_slider_isEnabled"
+        private const val KEY_SECOND = "key_SECOND"
+        private const val KEY_TEXT_TIMER = "key_text_timer"
+        private const val KEY_BAR_TIME_MAX = "key_bar_time_max"
+        private const val KEY_BAR_TIME_PROGRESS = "key_bar_time_progress"
     }
 }
