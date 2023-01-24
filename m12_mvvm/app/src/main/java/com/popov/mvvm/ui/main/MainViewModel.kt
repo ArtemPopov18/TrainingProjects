@@ -32,4 +32,18 @@ class MainViewModel(
             }
         }
     }
+
+    fun textEditCount(textEdit: String) {
+        viewModelScope.launch {
+            val countEditText = textEdit.count()
+            if (countEditText < 3) {
+                var editTextErrorMy: String? = null
+                editTextErrorMy = "Длина строки меньше трех символов"
+                _state.value = State.Error(editTextErrorMy)
+                _error.send("Длина строки меньше трех символов")
+            } else{
+                _state.value = State.Success
+            }
+        }
+    }
 }

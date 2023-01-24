@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.popov.mvvm.databinding.FragmentMainBinding
+import kotlinx.coroutines.delay
 
 class MainFragment : Fragment() {
 
@@ -36,10 +37,12 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.bottomSearch.setOnClickListener {
             val textEdit = binding.textQuery.text.toString()
             viewModel.onButtonClick(textEdit)
         }
+
         viewLifecycleOwner.lifecycleScope
             .launchWhenStarted {
                 viewModel.state
@@ -60,6 +63,13 @@ class MainFragment : Fragment() {
                             }
                         }
                     }
+            }
+        viewLifecycleOwner.lifecycleScope
+            .launchWhenStarted {
+                while (true){
+                    delay(3000)
+                    viewModel.textEditCount(binding.textQuery.text.toString())
+                }
             }
 
     }
