@@ -15,17 +15,12 @@ class MainViewModel(
 
     private val _state = MutableStateFlow<State>(State.ReadyToWork)
     val state = _state.asStateFlow()
+    private val _stateIsEnabled = MutableStateFlow(false)
+    val stateIsEnabled = _stateIsEnabled.asStateFlow()
     private val _stateChannel = Channel<String>()
     val stateChannel = _stateChannel.receiveAsFlow()
 
     fun onButtonClick(textEdit: String) {
-        viewModelScope.launch {
-                _state.value = State.Loading
-                _state.value = State.Success(repository.getData(textEdit))
-        }
-    }
-
-    fun countTextEdit(textEdit: String){
         viewModelScope.launch {
             var countEditText = textEdit.count()
             var editTextErrorMy: String? = null
@@ -35,8 +30,27 @@ class MainViewModel(
                 _state.value = State.Error(editTextErrorMy)
                 _stateChannel.send("Ошибка в запросе")
             } else {
-                _state.value = State.ReadyToWork
-            }
+                _state.value = State.Loading
+                _state.value = State.Success(repository.getData(textEdit))}
         }
     }
+
+    fun stateButton(value: Boolean){
+        _stateIsEnabled.value = value
+    }
+
+//    fun countTextEdit(textEdit: String){
+//        viewModelScope.launch {
+//            var countEditText = textEdit.count()
+//            var editTextErrorMy: String? = null
+//            if (countEditText < 3) {
+//                delay(2000)
+//                editTextErrorMy = "Длина строки меньше трех символов"
+//                _state.value = State.Error(editTextErrorMy)
+//                _stateChannel.send("Ошибка в запросе")
+//            } else {
+//                _state.value = State.ReadyToWork
+//            }
+//        }
+//    }
 }
