@@ -1,6 +1,7 @@
 package com.popov.mvvm.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.popov.mvvm.databinding.FragmentMainBinding
-import kotlinx.coroutines.delay
+
+private const val TAG = "MainActivity"
 
 class MainFragment : Fragment() {
 
@@ -38,6 +40,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.countTextEdit(binding.textQuery.text.toString())
+
         binding.bottomSearch.setOnClickListener {
             val textEdit = binding.textQuery.text.toString()
             viewModel.onButtonClick(textEdit)
@@ -60,18 +64,27 @@ class MainFragment : Fragment() {
                                 binding.message.text = state.editTextErrorMy
                                 binding.progressBar.isVisible = false
                                 binding.bottomSearch.isEnabled = false
+//                                var textEdit = binding.textQuery.text.toString()
+
+//                                viewModel.countTextEdit(textEdit)
+                            }
+                            State.ReadyToWork -> {
+                                binding.message.text = "Здесь будет отображаться результат запроса"
+                                binding.bottomSearch.isEnabled = true
                             }
                         }
                     }
             }
+
         viewLifecycleOwner.lifecycleScope
             .launchWhenStarted {
-                while (true){
-                    delay(3000)
-                    viewModel.textEditCount(binding.textQuery.text.toString())
-                }
+                viewModel.error
+                    .collect {
+                        var textEdit = binding.textQuery.text.toString()
+                        viewModel.countTextEdit(textEdit)
+                        Log.d(TAG, "равно $textEdit")
+                    }
             }
-
     }
 
     override fun onDestroy() {

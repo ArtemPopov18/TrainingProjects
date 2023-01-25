@@ -3,6 +3,7 @@ package com.popov.mvvm.ui.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -19,30 +20,23 @@ class MainViewModel(
 
     fun onButtonClick(textEdit: String) {
         viewModelScope.launch {
-            val countEditText = textEdit.count()
-            if (countEditText < 3) {
-                var editTextErrorMy: String? = null
-                editTextErrorMy = "Длина строки меньше трех символов"
-                _state.value = State.Error(editTextErrorMy)
-                _error.send("Длина строки меньше трех символов")
-            } else {
                 _state.value = State.Loading
                 repository.getData(textEdit)
                 _state.value = State.Success
-            }
         }
     }
 
-    fun textEditCount(textEdit: String) {
+    fun countTextEdit(textEdit: String){
         viewModelScope.launch {
-            val countEditText = textEdit.count()
+            var countEditText = textEdit.count()
+            var editTextErrorMy: String? = null
             if (countEditText < 3) {
-                var editTextErrorMy: String? = null
+                delay(2000)
                 editTextErrorMy = "Длина строки меньше трех символов"
                 _state.value = State.Error(editTextErrorMy)
-                _error.send("Длина строки меньше трех символов")
-            } else{
-                _state.value = State.Success
+                _error.send("Ошибка в запросе")
+            } else {
+                _state.value = State.ReadyToWork
             }
         }
     }
