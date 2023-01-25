@@ -56,10 +56,10 @@ class MainFragment : Fragment() {
                                 binding.progressBar.isVisible = true
                                 binding.bottomSearch.isEnabled = false
                             }
-                            State.Success -> {
-                                binding.progressBar.isVisible = false
-                                binding.bottomSearch.isEnabled = true
-                            }
+//                            State.Success -> {
+//                                binding.progressBar.isVisible = false
+//                                binding.bottomSearch.isEnabled = true
+//                            }
                             is State.Error -> {
                                 binding.message.text = state.editTextErrorMy
                                 binding.progressBar.isVisible = false
@@ -72,13 +72,18 @@ class MainFragment : Fragment() {
                                 binding.message.text = "Здесь будет отображаться результат запроса"
                                 binding.bottomSearch.isEnabled = true
                             }
+                            is State.Success -> {
+                                binding.progressBar.isVisible = false
+                                binding.bottomSearch.isEnabled = true
+                                binding.message.text = state.editTextQuery
+                            }
                         }
                     }
             }
 
         viewLifecycleOwner.lifecycleScope
             .launchWhenStarted {
-                viewModel.error
+                viewModel.stateChannel
                     .collect {
                         var textEdit = binding.textQuery.text.toString()
                         viewModel.countTextEdit(textEdit)

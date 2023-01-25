@@ -13,16 +13,15 @@ class MainViewModel(
     private val repository: MainRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<State>(State.Success)
+    private val _state = MutableStateFlow<State>(State.ReadyToWork)
     val state = _state.asStateFlow()
-    private val _error = Channel<String>()
-    val error = _error.receiveAsFlow()
+    private val _stateChannel = Channel<String>()
+    val stateChannel = _stateChannel.receiveAsFlow()
 
     fun onButtonClick(textEdit: String) {
         viewModelScope.launch {
                 _state.value = State.Loading
-                repository.getData(textEdit)
-                _state.value = State.Success
+                _state.value = State.Success(repository.getData(textEdit))
         }
     }
 
@@ -34,7 +33,7 @@ class MainViewModel(
                 delay(2000)
                 editTextErrorMy = "Длина строки меньше трех символов"
                 _state.value = State.Error(editTextErrorMy)
-                _error.send("Ошибка в запросе")
+                _stateChannel.send("Ошибка в запросе")
             } else {
                 _state.value = State.ReadyToWork
             }

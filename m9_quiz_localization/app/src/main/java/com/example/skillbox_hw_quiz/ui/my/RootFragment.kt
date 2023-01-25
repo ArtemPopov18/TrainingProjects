@@ -15,8 +15,13 @@ class RootFragment : Fragment(R.layout.fragment_root) {
 
     private lateinit var binding: FragmentRootBinding
     private val calendar = Calendar.getInstance()
-    private val dateFormatRu = SimpleDateFormat("dd-MM-yy")
-    private val dateFormatEn = SimpleDateFormat("MM-dd-yy")
+//    private val dateFormatRu = SimpleDateFormat("dd-MM-yy")
+//    private val dateFormatEn = SimpleDateFormat("MM-dd-yy")
+    private val dateFormat = if (Locale.getDefault().language == "ru") {
+        SimpleDateFormat("dd-MM-yy")
+    } else {
+        SimpleDateFormat("MM-dd-yy")
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,19 +39,18 @@ class RootFragment : Fragment(R.layout.fragment_root) {
 
             dateDialog.addOnPositiveButtonClickListener { timeInMillis ->
                 calendar.timeInMillis = timeInMillis
-                if (Locale.getDefault().language == "ru"){
-                    snackbarDatePicker(dateFormatRu)
-                } else {
-                    snackbarDatePicker(dateFormatEn)
-                }
-
+//                if (Locale.getDefault().language == "ru"){
+//                    snackbarDatePicker(dateFormatRu)
+//                } else {
+//                    snackbarDatePicker(dateFormatEn)
+//                }
+                Snackbar.make(binding.datePicker, dateFormat.format(calendar.time), Snackbar.LENGTH_SHORT).show()
             }
-
             dateDialog.show(childFragmentManager, "DatePicker")
         }
     }
 
-    private fun snackbarDatePicker(dateFormat: SimpleDateFormat){
-        Snackbar.make(binding.datePicker, dateFormat.format(calendar.time), Snackbar.LENGTH_SHORT).show()
-    }
+//    private fun snackbarDatePicker(dateFormat: SimpleDateFormat){
+//        Snackbar.make(binding.datePicker, dateFormat.format(calendar.time), Snackbar.LENGTH_SHORT).show()
+//    }
 }

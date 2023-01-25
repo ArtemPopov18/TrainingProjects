@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
@@ -26,10 +27,10 @@
         android:progress="60"
         android:progressDrawable="@drawable/circle_progress"
         android:rotation="-90"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/slider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view" />
 
     <TextView
         android:id="@+id/scoreboard_time"
@@ -54,6 +55,7 @@
         android:valueTo="60"
         android:valueFrom="10"
         android:stepSize="10"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_start"
         app:layout_constraintEnd_toEndOf="@id/progressBar_time"
         app:layout_constraintStart_toStartOf="@id/progressBar_time"
         app:layout_constraintTop_toBottomOf="@id/progressBar_time" />
@@ -63,6 +65,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/start"
+        app:layout_constraintTop_toBottomOf="@+id/slider"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/progressBar_time"
         app:layout_constraintStart_toStartOf="@id/progressBar_time" />
