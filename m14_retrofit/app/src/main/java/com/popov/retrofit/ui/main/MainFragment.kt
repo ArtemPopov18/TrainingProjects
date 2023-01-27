@@ -32,7 +32,7 @@ class MainFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.state.collect { state ->
                 when (state) {
-                    State.Loading -> binding.button.isEnabled = true
+                    State.Loading -> binding.button.isEnabled = false
                     is State.Success -> {
                         binding.button.isEnabled = true
                         binding.message.text = state.dataPeople

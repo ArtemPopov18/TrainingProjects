@@ -9,7 +9,7 @@ import retrofit2.http.GET
 interface ApiInterface {
 
     @GET("?results=1&inc=gender,name,location,bod,nat,picture")
-    fun getPerson() : Call<People>
+    fun getPeople() : Call<People>
 
     companion object {
 
