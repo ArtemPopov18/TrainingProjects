@@ -11,4 +11,7 @@ class UsefulActivityDto(
     override val price: Double,
     override val type: String
 ) : UsefulActivity {
+    override fun toString(): String {
+        return "$accessibility\n$activity\n$key\n$link\n$participants\n$price\n$type"
+    }
 }

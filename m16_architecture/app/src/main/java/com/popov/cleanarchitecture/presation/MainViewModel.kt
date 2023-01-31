@@ -1,5 +1,6 @@
 package com.popov.cleanarchitecture.presation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.popov.cleanarchitecture.domain.GetUsefulActivityUseCase
@@ -15,6 +16,7 @@ class MainViewModel(private val getUsefulActivityUseCase: GetUsefulActivityUseCa
 
     fun reloadUsefulActivity(){
         viewModelScope.launch {
+            Log.d("AAA", "первый")
             _infoUsefulActivity.send(getUsefulActivityUseCase.execute())
         }
     }
