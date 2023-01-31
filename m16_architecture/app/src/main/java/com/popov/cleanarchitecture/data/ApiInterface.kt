@@ -10,7 +10,7 @@ import retrofit2.http.GET
 interface ApiInterface {
 
     @GET("activity/")
-    suspend fun getUsefulActivity(): UsefulActivity
+    suspend fun getUsefulActivity(): UsefulActivityDto
 
     companion object {
 

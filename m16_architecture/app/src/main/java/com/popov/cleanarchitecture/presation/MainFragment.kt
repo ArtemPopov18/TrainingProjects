@@ -8,17 +8,23 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.popov.cleanarchitecture.databinding.FragmentMainBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     companion object {
         fun newInstance() = MainFragment()
     }
 
+    @Inject
+    lateinit var mainViewModelFactory: MainViewModelFactory
+
+    private val viewModel: MainViewModel by viewModels { mainViewModelFactory }
+
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-
-    private val viewModel: MainViewModel by viewModels { MainViewModelFactory() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

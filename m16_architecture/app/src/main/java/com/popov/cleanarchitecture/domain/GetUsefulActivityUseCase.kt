@@ -2,15 +2,17 @@ package com.popov.cleanarchitecture.domain
 
 import android.util.Log
 import com.popov.cleanarchitecture.data.UsefulActivitiesRepository
+import com.popov.cleanarchitecture.data.UsefulActivityDto
 import com.popov.cleanarchitecture.entity.UsefulActivity
+import javax.inject.Inject
 
-class GetUsefulActivityUseCase(
+class GetUsefulActivityUseCase @Inject constructor(
     private val usefulActivitiesRepository: UsefulActivitiesRepository
 ) {
 
     suspend fun execute() : UsefulActivity {
         Log.d("AAA", "Второй")
-        val usefulActivity = usefulActivitiesRepository.getUsefulActivity()
-        return usefulActivity
+        val usefulActivityDto = usefulActivitiesRepository.getUsefulActivity()
+        return usefulActivityDto
     }
 }

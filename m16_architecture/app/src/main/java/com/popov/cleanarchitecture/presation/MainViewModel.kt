@@ -8,13 +8,16 @@ import com.popov.cleanarchitecture.entity.UsefulActivity
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(private val getUsefulActivityUseCase: GetUsefulActivityUseCase) : ViewModel() {
+
+class MainViewModel @Inject constructor(private val getUsefulActivityUseCase: GetUsefulActivityUseCase) :
+    ViewModel() {
 
     private val _infoUsefulActivity = Channel<UsefulActivity>()
     val infoUsefulActivity = _infoUsefulActivity.receiveAsFlow()
 
-    fun reloadUsefulActivity(){
+    fun reloadUsefulActivity() {
         viewModelScope.launch {
             Log.d("AAA", "первый")
             _infoUsefulActivity.send(getUsefulActivityUseCase.execute())
