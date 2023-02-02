@@ -23,6 +23,10 @@ class MainAdapter() : RecyclerView.Adapter<MainViewHolder>() {
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val item = values[position].photos
+//        val item = values.getOrNull(position)
+//        with(holder.binding){
+//            dateText.text = item.photos.
+//        }
         with(holder.binding) {
             dateText.text = item[position].earth_date
             solText.text = item[position].sol.toString()
