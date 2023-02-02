@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface ApiInterface {
 
     @GET("?sol=20&api_key=$API_KEY")
-    suspend fun getPhotoMars(@Query("api_key") api_key: String = API_KEY): List<MarsList>
+    suspend fun getPhotoMars(): List<Photo>
 
     companion object {
 

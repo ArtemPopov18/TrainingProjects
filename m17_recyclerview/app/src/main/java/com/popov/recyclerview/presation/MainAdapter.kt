@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.popov.recyclerview.data.MarsList
+import com.popov.recyclerview.data.Photo
 import com.popov.recyclerview.databinding.MarsListItemBinding
 
 
 class MainAdapter() : RecyclerView.Adapter<MainViewHolder>() {
-    private var values: List<MarsList> = emptyList()
+    private var values: List<Photo> = emptyList()
 
-    fun setData(values: List<MarsList>) {
+    fun setData(values: List<Photo>) {
         this.values = values
         notifyDataSetChanged()
     }
@@ -22,19 +23,19 @@ class MainAdapter() : RecyclerView.Adapter<MainViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val item = values[position].photos
+        val item = values.getOrNull(position)
 //        val item = values.getOrNull(position)
 //        with(holder.binding){
 //            dateText.text = item.photos.
 //        }
         with(holder.binding) {
-            dateText.text = item[position].earth_date
-            solText.text = item[position].sol.toString()
-            cameraText.text = item[position].camera.name
+            dateText.text = item?.earth_date ?: ""
+            solText.text = item?.sol.toString()
+            cameraText.text = item?.camera?.name ?: ""
             item?.let {
                 Glide
                     .with(marsImage.context)
-                    .load(it[position].img_src)
+                    .load(it.img_src)
                     .into(marsImage)
             }
         }

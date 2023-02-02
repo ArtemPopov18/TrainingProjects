@@ -1,8 +1,5 @@
 package com.popov.cleanarchitecture.data
 import android.util.Log
-import com.popov.cleanarchitecture.entity.UsefulActivity
-import retrofit2.Call
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET

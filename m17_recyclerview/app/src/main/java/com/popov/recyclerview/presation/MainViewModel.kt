@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.popov.recyclerview.data.MarsList
+import com.popov.recyclerview.data.Photo
 import com.popov.recyclerview.domain.GetMarsInfoUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val getMarsInfoUseCase: GetMarsInfoUseCase) : ViewModel() {
 
-    private val _mars = MutableStateFlow<List<MarsList>>(emptyList())
+    private val _mars = MutableStateFlow<List<Photo>>(emptyList())
     val mars = _mars.asStateFlow()
 
     init {
