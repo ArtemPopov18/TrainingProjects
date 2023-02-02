@@ -1,10 +1,11 @@
 package com.popov.recyclerview.presation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.popov.recyclerview.data.MarsList
+import com.popov.recyclerview.R
 import com.popov.recyclerview.data.Photo
 import com.popov.recyclerview.databinding.MarsListItemBinding
 
@@ -32,6 +33,7 @@ class MainAdapter() : RecyclerView.Adapter<MainViewHolder>() {
             dateText.text = item?.earth_date ?: ""
             solText.text = item?.sol.toString()
             cameraText.text = item?.camera?.name ?: ""
+            Log.d("AAA", item?.img_src ?: "пусто")
             item?.let {
                 Glide
                     .with(marsImage.context)

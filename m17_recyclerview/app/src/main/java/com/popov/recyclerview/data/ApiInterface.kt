@@ -7,12 +7,12 @@ import retrofit2.http.Query
 
 interface ApiInterface {
 
-    @GET("?sol=20&api_key=$API_KEY")
-    suspend fun getPhotoMars(): List<Photo>
+    @GET("photos?sol=20&api_key=$API_KEY")
+    suspend fun getPhotoMars(): MarsList
 
     companion object {
 
-        private val BASE_URL = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos"
+        val BASE_URL = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/"
 
         private const val API_KEY = "AcA2sJUXcXEgNQ7hH62NRsk9rUeabXiZg0K5r0Dx"
 
