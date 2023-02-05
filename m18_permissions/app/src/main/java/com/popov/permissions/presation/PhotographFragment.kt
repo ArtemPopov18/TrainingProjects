@@ -59,7 +59,7 @@ class PhotographFragment : Fragment() {
         checkPermissions()
     }
 
-    private suspend fun takePhoto() {
+    private fun takePhoto() {
         val imageCapture = imageCapture ?: return
         val contentValues = ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, name)
@@ -82,7 +82,7 @@ class PhotographFragment : Fragment() {
                     photoDao.insert(
                         Photo(
                             path = path,
-                            date = outputFileResults.
+                            date = name
                         )
                     )
                 }
