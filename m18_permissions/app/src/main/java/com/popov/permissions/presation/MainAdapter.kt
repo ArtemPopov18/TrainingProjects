@@ -13,8 +13,8 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
     private var values: List<Photo> = emptyList()
 
     fun setData(values: List<Photo>) {
-        Log.d("AAA", "ViewHolderList= $values")
         this.values = values
+        Log.d("AAA", "ViewHolderList= $values")
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {

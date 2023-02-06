@@ -53,12 +53,16 @@ class MainFragment : Fragment() {
             viewModel.delete()
         }
 
+        binding.recyclerView.adapter = mainAdapter
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.photo.collect { photo ->
                 Log.d("AAA", "$photo")
                 mainAdapter.setData(photo)
             }
         }
+
+
     }
 
     override fun onDestroy() {
