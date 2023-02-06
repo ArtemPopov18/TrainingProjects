@@ -1,5 +1,6 @@
 package com.popov.permissions.presation
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,7 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
     private var values: List<Photo> = emptyList()
 
     fun setData(values: List<Photo>) {
+        Log.d("AAA", "ViewHolderList= $values")
         this.values = values
         notifyDataSetChanged()
     }
@@ -23,8 +25,11 @@ class MainAdapter : RecyclerView.Adapter<MainViewHolder>() {
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val item = values.getOrNull(position)
+        Log.d("AAA", "ViewHolderItem= $item")
         with(holder.binding) {
+            Log.d("AAA", "ViewHolderDate= ${item?.date}")
             dateText.text = item?.date ?: ""
+            Log.d("AAA", "ViewHolderPath = ${item?.path}")
             item?.let {
                 Glide.with(photoImage.context).load(it.path).into(photoImage)
             }

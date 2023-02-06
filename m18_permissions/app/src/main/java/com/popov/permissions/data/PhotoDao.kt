@@ -15,4 +15,6 @@ interface PhotoDao {
     @Insert
     suspend fun insert(photo: Photo)
 
+    @Query("DELETE FROM photo")
+    suspend fun delete()
 }

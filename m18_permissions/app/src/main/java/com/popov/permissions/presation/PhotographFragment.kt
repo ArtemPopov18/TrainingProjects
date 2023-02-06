@@ -18,9 +18,11 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.popov.permissions.App
 import com.popov.permissions.databinding.FragmentPhotographBinding
-import com.popov.permissions.entity.Photo
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Executor
@@ -36,7 +38,15 @@ class PhotographFragment : Fragment() {
     private val name = SimpleDateFormat(FILENAME_FORMAT, Locale.US)
         .format(System.currentTimeMillis())
 
-    val photoDao = (context?.applicationContext as App).db.photoDao()
+    //    val photoDao = (context?.applicationContext as App).db.photoDao()
+    private val viewModel: PhotographViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                val photoDao = (context?.applicationContext as App).db.photoDao()
+                return PhotographViewModel(photoDao) as T
+            }
+        }
+    }
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { map ->
@@ -79,12 +89,15 @@ class PhotographFragment : Fragment() {
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     val path = "${outputFileResults.savedUri.toString()}"
-                    photoDao.insert(
-                        Photo(
-                            path = path,
-                            date = name
-                        )
-                    )
+                    viewModel.addPhoto(path, name)
+//                    lifecycleScope.launchWhenStarted {
+//                        photoDao.insert(
+//                            Photo(
+//                                path = path,
+//                                date = name
+//                            )
+//                        )
+//                    }
                 }
 
                 override fun onError(exception: ImageCaptureException) {

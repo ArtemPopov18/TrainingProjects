@@ -1,6 +1,7 @@
 package com.popov.permissions.presation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,9 +49,13 @@ class MainFragment : Fragment() {
                 R.id.action_mainFragment_to_photographFragment
             )
         }
+        binding.deleteButton.setOnClickListener {
+            viewModel.delete()
+        }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.photo.collect { photo ->
+                Log.d("AAA", "$photo")
                 mainAdapter.setData(photo)
             }
         }
