@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "699436075108",
+    "project_id": "training-firebase-79afd",
+    "storage_bucket": "training-firebase-79afd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699436075108:android:7cd6bdfdaefb4cf24bf771",
+        "android_client_info": {
+          "package_name": "com.popov.firebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699436075108-hv15setilns18mts037gg831aubvr3b0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQNwnd7fOEgw_uUr3achUyldrWp_OBuNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699436075108-hv15setilns18mts037gg831aubvr3b0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
