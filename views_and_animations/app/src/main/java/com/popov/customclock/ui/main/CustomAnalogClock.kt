@@ -8,6 +8,11 @@ import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import androidx.lifecycle.findViewTreeLifecycleOwner
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import java.util.*
 
 
@@ -130,13 +135,29 @@ class CustomAnalogClock : View {
         )
     }
 
-    fun start(){
+    private val _state = MutableStateFlow<TimeState>(TimeState(currentTime(), false))
+    val state = _state.asStateFlow()
+
+    fun start(time: Int){
+        times = time
+        _state.value = TimeState(currentTime(), true)
+        addUpdateListener { _state.value }
     }
     fun stop(){
+        _state.value = TimeState(currentTime(), false)
+        addUpdateListener { _state.value }
     }
     fun reset(){
+        times = 0
+        removeUpdateListener { _state.value }
     }
-    fun currentTime(time: Int){
-        times = time
+    fun currentTime(): Long{
+        return times.toLong()
+    }
+    fun addUpdateListener(listener:(TimeState)->Unit){
+
+    }
+    fun removeUpdateListener(listener:(TimeState)->Unit){
+
     }
 }

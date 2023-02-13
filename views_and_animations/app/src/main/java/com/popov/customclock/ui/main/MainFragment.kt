@@ -40,21 +40,19 @@ class MainFragment : Fragment() {
         binding.buttonStop.setOnClickListener {
             binding.chronometerMy.stop()
             pauseOffset = SystemClock.elapsedRealtime() - binding.chronometerMy.base
+            binding.myClock.stop()
         }
         binding.buttonReset.setOnClickListener {
             binding.chronometerMy.base = SystemClock.elapsedRealtime()
             pauseOffset = 0
+            binding.myClock.reset()
         }
         binding.chronometerMy.setOnChronometerTickListener {
             if (((binding.chronometerMy.drawingTime - binding.chronometerMy.base) / 1000) > 0){
-                binding.myClock.currentTime((((binding.chronometerMy.drawingTime - binding.chronometerMy.base) / 1000).toInt()))
+                binding.myClock.start((((binding.chronometerMy.drawingTime - binding.chronometerMy.base) / 1000).toInt()))
             } else {
-                binding.myClock.currentTime(0)
+                binding.myClock.start(0)
             }
-//            binding.myClock.currentTime()
-//            Log.d("AAA",
-//                ((binding.chronometerMy.drawingTime - binding.chronometerMy.base) / 1000).toString()
-//            )
         }
     }
 
