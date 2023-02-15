@@ -8,11 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.popov.customclock.databinding.FragmentMainBinding
-import java.text.SimpleDateFormat
 
 class MainFragment : Fragment() {
 
-    private var _binding : FragmentMainBinding? = null
+    private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private var pauseOffset: Long = 0
 
@@ -36,6 +35,7 @@ class MainFragment : Fragment() {
         binding.buttonStart.setOnClickListener {
             binding.chronometerMy.base = SystemClock.elapsedRealtime() - pauseOffset
             binding.chronometerMy.start()
+            binding.myClock.start()
         }
         binding.buttonStop.setOnClickListener {
             binding.chronometerMy.stop()
@@ -48,11 +48,20 @@ class MainFragment : Fragment() {
             binding.myClock.reset()
         }
         binding.chronometerMy.setOnChronometerTickListener {
-            if (((binding.chronometerMy.drawingTime - binding.chronometerMy.base) / 1000) > 0){
-                binding.myClock.start((((binding.chronometerMy.drawingTime - binding.chronometerMy.base) / 1000).toInt()))
+            if (((binding.chronometerMy.drawingTime - binding.chronometerMy.base) / 1000) > 0) {
+                val times =
+                    ((binding.chronometerMy.drawingTime - binding.chronometerMy.base) / 1000).toInt()
+                binding.myClock.updateTime(times)
             } else {
-                binding.myClock.start(0)
+                binding.myClock.updateTime(0)
             }
+        }
+        bindToTimeChanges(binding.myClock)
+    }
+
+    fun bindToTimeChanges(clock: ICustomAnalogClock) {
+        clock.addUpdateListener {
+            Log.d("AAA", it.toString())
         }
     }
 

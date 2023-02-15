@@ -6,17 +6,12 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import androidx.lifecycle.findViewTreeLifecycleOwner
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
-import java.util.*
 
 
-class CustomAnalogClock : View {
+class CustomAnalogClock : View, ICustomAnalogClock, ICustomAnalogClockUpdateTime {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -47,7 +42,6 @@ class CustomAnalogClock : View {
     private val mRect: Rect = Rect()
     private var isInit = false
 
-    private var times = 0
 
     override fun onDraw(canvas: Canvas) {
         if (!isInit) {
@@ -135,29 +129,59 @@ class CustomAnalogClock : View {
         )
     }
 
-    private val _state = MutableStateFlow<TimeState>(TimeState(currentTime(), false))
-    val state = _state.asStateFlow()
+    private var times = 0 // типой таймер
+    private var state = TimeState(currentTime(), false)
+    private val listeners = mutableListOf<(TimeState) -> Unit>()
 
-    fun start(time: Int){
-        times = time
-        _state.value = TimeState(currentTime(), true)
-        addUpdateListener { _state.value }
+    override fun start() {
+        state = TimeState(currentTime(), true)
     }
-    fun stop(){
-        _state.value = TimeState(currentTime(), false)
-        addUpdateListener { _state.value }
+
+    override fun stop() {
+        state = TimeState(currentTime(), false)
     }
-    fun reset(){
+
+    override fun reset() {
         times = 0
-        removeUpdateListener { _state.value }
+        state = TimeState(currentTime(), false)
     }
-    fun currentTime(): Long{
+
+    override fun currentTime(): Long {
         return times.toLong()
     }
-    fun addUpdateListener(listener:(TimeState)->Unit){
 
+    override fun addUpdateListener(listener: (TimeState) -> Unit) {
+        listeners.add(listener)
+//        Log.d("AAA", "$listeners")
     }
-    fun removeUpdateListener(listener:(TimeState)->Unit){
 
+    override fun removeUpdateListener(listener: (TimeState) -> Unit) {
+        listeners.remove(listener)
     }
+
+    override fun updateTime(time: Int) {
+        times = time
+        state = TimeState(time.toLong(), state.isPlayed)
+        listeners.forEach{
+            it(state)
+        }
+    }
+}
+
+interface ICustomAnalogClock{
+    fun start()
+
+    fun stop()
+
+    fun reset()
+
+    fun currentTime(): Long
+
+    fun addUpdateListener(listener: (TimeState) -> Unit)
+
+    fun removeUpdateListener(listener: (TimeState) -> Unit)
+}
+
+interface ICustomAnalogClockUpdateTime {
+    fun updateTime(time: Int)
 }
