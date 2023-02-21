@@ -36,11 +36,12 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.recycler.adapter = pagedAdapter
-
-        viewModel.pagedCharacter.onEach {
-            pagedAdapter.submitData(it)
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+        reloadList()
+//        binding.recycler.adapter = pagedAdapter
+//
+//        viewModel.pagedCharacter.onEach {
+//            pagedAdapter.submitData(it)
+//        }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         pagedAdapter.addLoadStateListener {
             if (it.refresh is LoadState.Error) {
@@ -49,9 +50,7 @@ class MainFragment : Fragment() {
             }
         }
         binding.reloadButton.setOnClickListener {
-            viewModel.pagedCharacter.onEach {
-                pagedAdapter.submitData(it)
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+            reloadList()
         }
 
 //        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
@@ -67,6 +66,13 @@ class MainFragment : Fragment() {
 //                }
 //            }
 //        }
+    }
+    private fun reloadList() {
+        binding.recycler.adapter = pagedAdapter
+        viewModel.pagedCharacter.onEach {
+            pagedAdapter.submitData(it)
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+        binding.recycler.adapter = pagedAdapter
     }
 
     override fun onDestroy() {
