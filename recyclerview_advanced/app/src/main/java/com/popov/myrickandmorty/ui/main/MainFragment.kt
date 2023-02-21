@@ -47,6 +47,9 @@ class MainFragment : Fragment() {
             if (it.refresh is LoadState.Error) {
                 binding.recycler.isVisible = false
                 binding.reloadButton.isVisible = true
+            }else{
+                binding.recycler.isVisible = true
+                binding.reloadButton.isVisible = false
             }
         }
         binding.reloadButton.setOnClickListener {
