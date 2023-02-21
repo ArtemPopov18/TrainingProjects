@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import com.google.android.material.snackbar.Snackbar
 import com.popov.myrickandmorty.databinding.FragmentMainBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -44,9 +46,11 @@ class MainFragment : Fragment() {
 //        }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         pagedAdapter.addLoadStateListener {
-            if (it.refresh is LoadState.Error) {
+            val refreshState = it.refresh
+            if (refreshState is LoadState.Error) {
                 binding.recycler.isVisible = false
                 binding.reloadButton.isVisible = true
+                Toast.makeText(requireContext(), refreshState.error.localizedMessage, Toast.LENGTH_LONG).show()
             }else{
                 binding.recycler.isVisible = true
                 binding.reloadButton.isVisible = false
