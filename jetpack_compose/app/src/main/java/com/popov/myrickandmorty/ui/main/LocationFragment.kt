@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -18,27 +17,36 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemsIndexed
 
 class LocationFragment : Fragment() {
     private val viewModel: LocationViewModel by viewModels()
 
+    companion object {
+        fun newInstance() = LocationFragment()
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(requireContext()).apply {
        setContent {
-          LazyColumn{
-              itemsIndexed(
-                  viewModel.pagedLocation
-              ){ index, item ->
-                    LocationItemView(result = item)
-              }
-          }
+          LocationAll(viewModel = viewModel)
        }
     }
 }
 
+@Composable
+fun LocationAll(viewModel: LocationViewModel){
+    val locationList = viewModel.pagedLocation.collectAsLazyPagingItems()
+    
+    LazyColumn {
+        itemsIndexed(locationList){ index, item ->
+            LocationItemView(result = item!!)
+        }
+    }
+}
 
 @Composable
 private fun LocationItemView(result: com.popov.myrickandmorty.data.Result) {
