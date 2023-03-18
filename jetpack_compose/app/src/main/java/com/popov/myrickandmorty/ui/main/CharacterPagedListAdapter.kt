@@ -6,9 +6,12 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.popov.myrickandmorty.databinding.ItemListCharacterBinding
+import com.example.rickandmorty.databinding.ItemListCharacterBinding
 
-class CharacterPagedListAdapter : PagingDataAdapter<com.popov.myrickandmorty.data.Character, CharacterViewHolder>(DiffUtilCallback()) {
+
+class CharacterPagedListAdapter(
+    private val onClick: (com.popov.myrickandmorty.data.Character) -> Unit
+) : PagingDataAdapter<com.popov.myrickandmorty.data.Character, CharacterViewHolder>(DiffUtilCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
         return CharacterViewHolder(
             ItemListCharacterBinding.inflate(
@@ -27,6 +30,11 @@ class CharacterPagedListAdapter : PagingDataAdapter<com.popov.myrickandmorty.dat
                     .with(characterImage.context)
                     .load(it.image)
                     .into(characterImage)
+            }
+        }
+        holder.binding.root.setOnClickListener {
+            item?.let {
+                onClick(item)
             }
         }
     }

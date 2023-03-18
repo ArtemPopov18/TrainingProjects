@@ -9,14 +9,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.Text
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemsIndexed
 
@@ -38,7 +40,7 @@ class LocationFragment : Fragment() {
 }
 
 @Composable
-fun LocationAll(viewModel: LocationViewModel){
+fun LocationAll(viewModel: LocationViewModel = viewModel()){
     val locationList = viewModel.pagedLocation.collectAsLazyPagingItems()
     
     LazyColumn {
@@ -50,12 +52,12 @@ fun LocationAll(viewModel: LocationViewModel){
 
 @Composable
 private fun LocationItemView(result: com.popov.myrickandmorty.data.Result) {
+    
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
         shape = RoundedCornerShape(15.dp),
-        elevation = 5.dp
     ) {
         Row(modifier = Modifier
             .padding(3.dp)

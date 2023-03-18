@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import com.google.android.material.snackbar.Snackbar
-import com.popov.myrickandmorty.databinding.FragmentMainBinding
+import com.example.rickandmorty.R
+import com.example.rickandmorty.databinding.FragmentMainBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -19,7 +19,7 @@ class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    private val pagedAdapter = CharacterPagedListAdapter()
+    private val pagedAdapter = CharacterPagedListAdapter { character ->  onItemClick(character)}
 
 
     companion object {
@@ -61,6 +61,10 @@ class MainFragment : Fragment() {
             pagedAdapter.submitData(it)
         }.launchIn(viewLifecycleOwner.lifecycleScope)
         binding.recycler.adapter = pagedAdapter
+    }
+
+    fun onItemClick(item: com.popov.myrickandmorty.data.Character){
+        childFragmentManager.beginTransaction().replace(R.id.container_tab, CharacterFragment.newInstance(item)).commitNow()
     }
 
     override fun onDestroy() {
