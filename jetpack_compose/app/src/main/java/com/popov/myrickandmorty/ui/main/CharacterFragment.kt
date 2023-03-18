@@ -20,12 +20,10 @@ import com.popov.myrickandmorty.ui.theme.ColorRickAndMorty
 
 class CharacterFragment : Fragment() {
 
-    private lateinit var character: Character
+
 
     companion object {
-        fun newInstance(item: Character) = CharacterFragment().apply {
-            character = item
-        }
+        fun newInstance() = CharacterFragment()
     }
 
     override fun onCreateView(
@@ -33,6 +31,7 @@ class CharacterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(requireContext()).apply {
+        val character = arguments?.getParcelable("MyArg")
         setContent {
             CharacterItemView(character = character)
         }

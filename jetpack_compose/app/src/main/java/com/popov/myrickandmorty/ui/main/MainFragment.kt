@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.rickandmorty.R
 import com.example.rickandmorty.databinding.FragmentMainBinding
@@ -64,7 +65,10 @@ class MainFragment : Fragment() {
     }
 
     fun onItemClick(item: com.popov.myrickandmorty.data.Character){
-        childFragmentManager.beginTransaction().replace(R.id.container_tab, CharacterFragment.newInstance(item)).commitNow()
+        val bundle =Bundle()
+        val item = item
+        bundle.putParcelable("MyArg", item)
+findNavController().navigate(R.id.action_mainFragment_to_characterFragment, bundle)
     }
 
     override fun onDestroy() {
