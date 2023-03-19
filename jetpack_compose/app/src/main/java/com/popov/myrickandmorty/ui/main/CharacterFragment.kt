@@ -17,10 +17,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.popov.myrickandmorty.data.Character
 import com.popov.myrickandmorty.ui.theme.ColorRickAndMorty
+import androidx.navigation.fragment.findNavController
 
 class CharacterFragment : Fragment() {
 
@@ -37,14 +41,15 @@ class CharacterFragment : Fragment() {
     ): View = ComposeView(requireContext()).apply {
         val character = arguments?.getParcelable<com.popov.myrickandmorty.data.Character>("MyArg")
         setContent {
-            CharacterItemView(character = character!!)
+            CharacterItemView(character = character!!,
+            findNavController())
         }
     }
 }
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-private fun CharacterItemView(character: com.popov.myrickandmorty.data.Character) {
+private fun CharacterItemView(character: com.popov.myrickandmorty.data.Character, navigator: NavController) {
 
     Card(
         modifier = Modifier
@@ -113,10 +118,11 @@ private fun CharacterItemView(character: com.popov.myrickandmorty.data.Character
                 .weight(0.7f)
                 .background(ColorRickAndMorty)
                 .clickable {
-                    val action2 = CharacterFragmentDirections.actionCharacterFragmentToEpisodesFragment(
-                        character.episode.toTypedArray()
-                    )
-                    findNavController().navigate(action2)
+                    val action2 =
+                        CharacterFragmentDirections.actionCharacterFragmentToEpisodesFragment(
+                            character.episode.toTypedArray()
+                        )
+                    navigator.navigate(action2)
                 }
         ) {
             Text(
