@@ -16,14 +16,14 @@ data class Character(
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        TODO("origin"),
-        TODO("location"),
-        parcel.readString(),
-        parcel.createStringArrayList()
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readParcelable(LocationData::class.java.classLoader)!!,
+        parcel.readParcelable(LocationData::class.java.classLoader)!!,
+        parcel.readString()!!,
+        parcel.createStringArrayList()!!
     ) {
     }
 
@@ -33,6 +33,8 @@ data class Character(
         parcel.writeString(status)
         parcel.writeString(species)
         parcel.writeString(gender)
+        parcel.writeParcelable(origin, flags)
+        parcel.writeParcelable(location, flags)
         parcel.writeString(image)
         parcel.writeStringList(episode)
     }
@@ -50,4 +52,5 @@ data class Character(
             return arrayOfNulls(size)
         }
     }
+
 }

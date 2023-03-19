@@ -31,14 +31,14 @@ class CharacterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(requireContext()).apply {
-        val character = arguments?.getParcelable("MyArg")
+        val character = arguments?.getParcelable<com.popov.myrickandmorty.data.Character>("MyArg")
         setContent {
-            CharacterItemView(character = character)
+            CharacterItemView(character = character!!)
         }
     }
 }
 
-@OptIn(ExperimentalGlideComposeApi::class)
+//@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 private fun CharacterItemView(character: com.popov.myrickandmorty.data.Character) {
 
@@ -48,7 +48,7 @@ private fun CharacterItemView(character: com.popov.myrickandmorty.data.Character
             .fillMaxHeight()
             .padding(8.dp),
     ) {
-        GlideImage(model = character.image, contentDescription = null)
+//        GlideImage(model = character.image, contentDescription = null)
         Row(
             modifier = Modifier
                 .fillMaxWidth()

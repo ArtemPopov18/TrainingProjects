@@ -20,7 +20,7 @@ class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    private val pagedAdapter = CharacterPagedListAdapter { character ->  onItemClick(character)}
+    private val pagedAdapter = CharacterPagedListAdapter { character -> onItemClick(character) }
 
 
     companion object {
@@ -46,8 +46,12 @@ class MainFragment : Fragment() {
             if (refreshState is LoadState.Error) {
                 binding.recycler.isVisible = false
                 binding.reloadButton.isVisible = true
-                Toast.makeText(requireContext(), refreshState.error.localizedMessage, Toast.LENGTH_LONG).show()
-            }else{
+                Toast.makeText(
+                    requireContext(),
+                    refreshState.error.localizedMessage,
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
                 binding.recycler.isVisible = true
                 binding.reloadButton.isVisible = false
             }
@@ -56,6 +60,7 @@ class MainFragment : Fragment() {
             reloadList()
         }
     }
+
     private fun reloadList() {
         binding.recycler.adapter = pagedAdapter
         viewModel.pagedCharacter.onEach {
@@ -64,11 +69,11 @@ class MainFragment : Fragment() {
         binding.recycler.adapter = pagedAdapter
     }
 
-    fun onItemClick(item: com.popov.myrickandmorty.data.Character){
-        val bundle =Bundle()
+    fun onItemClick(item: com.popov.myrickandmorty.data.Character) {
+        val bundle = Bundle()
         val item = item
         bundle.putParcelable("MyArg", item)
-findNavController().navigate(R.id.action_mainFragment_to_characterFragment, bundle)
+        findNavController().navigate(R.id.action_mainFragment_to_characterFragment, bundle)
     }
 
     override fun onDestroy() {
