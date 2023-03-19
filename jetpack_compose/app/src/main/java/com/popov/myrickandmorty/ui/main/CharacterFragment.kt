@@ -5,13 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -38,7 +42,7 @@ class CharacterFragment : Fragment() {
     }
 }
 
-//@OptIn(ExperimentalGlideComposeApi::class)
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 private fun CharacterItemView(character: com.popov.myrickandmorty.data.Character) {
 
@@ -46,52 +50,77 @@ private fun CharacterItemView(character: com.popov.myrickandmorty.data.Character
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .padding(8.dp),
+            .padding(8.dp)
     ) {
-//        GlideImage(model = character.image, contentDescription = null)
+        GlideImage(model = character.image, contentDescription = null,
+            Modifier
+                .weight(1.0f)
+                .fillMaxSize())
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .weight(1.0f)
                 .background(ColorRickAndMorty)
         ) {
             Text(
-                text = character.name,
+                text = character.name, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White
             )
         }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .weight(0.7f)
                 .background(ColorRickAndMorty)
         ) {
             Text(
-                text = "Live status\n${character.status}",
+                text = "Live status:\n${character.status}", color = Color.White,
             )
         }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .weight(0.7f)
                 .background(ColorRickAndMorty)
         ) {
             Text(
-                text = "Species and gender\n${character.species}(${character.gender})",
+                text = "Species and gender:\n${character.species}(${character.gender})",
+                color = Color.White,
             )
         }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .weight(0.7f)
                 .background(ColorRickAndMorty)
         ) {
             Text(
-                text = "Last known location\n${character.location.name}",
+                text = "Last known location:\n${character.location.name}", color = Color.White,
             )
         }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .weight(0.7f)
                 .background(ColorRickAndMorty)
         ) {
             Text(
-                text = "Episodes:\n${character.episode[0]}",
+                text = "First seen in:\n${character.episode[0]}", color = Color.White,
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(0.7f)
+                .background(ColorRickAndMorty)
+                .clickable {
+                    val action2 = CharacterFragmentDirections.actionCharacterFragmentToEpisodesFragment(
+                        character.episode.toTypedArray()
+                    )
+                    findNavController().navigate(action2)
+                }
+        ) {
+            Text(
+                text = "Episodes:\n${character.episode[0]}", fontSize = 12.sp, color = Color.White,
             )
         }
     }

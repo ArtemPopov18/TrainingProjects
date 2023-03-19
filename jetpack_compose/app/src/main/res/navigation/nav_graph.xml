@@ -10,7 +10,10 @@
         android:label="CharacterFragment" >
         <argument
             android:name="MyArg"
-            android:defaultValue="character_arg" />
+            app:argType="com.popov.myrickandmorty.data.Character" />
+        <action
+            android:id="@+id/action_characterFragment_to_episodesFragment"
+            app:destination="@id/episodesFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -19,5 +22,13 @@
         <action
             android:id="@+id/action_mainFragment_to_characterFragment"
             app:destination="@id/characterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/episodesFragment"
+        android:name="com.popov.myrickandmorty.ui.main.EpisodesFragment"
+        android:label="EpisodesFragment" >
+        <argument
+            android:name="MyArg2"
+            app:argType="string[]" />
     </fragment>
 </navigation>

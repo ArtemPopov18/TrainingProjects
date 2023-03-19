@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.rickandmorty.R
@@ -70,9 +71,10 @@ class MainFragment : Fragment() {
     }
 
     fun onItemClick(item: com.popov.myrickandmorty.data.Character) {
-        val bundle = Bundle()
-        bundle.putParcelable("MyArg", item)
-        findNavController().navigate(R.id.action_mainFragment_to_characterFragment, bundle)
+//        val bundle = Bundle()
+        val action = MainFragmentDirections.actionMainFragmentToCharacterFragment(item)
+//        bundle.putParcelable("MyArg", item)
+        findNavController().navigate(action)
     }
 
     override fun onDestroy() {
