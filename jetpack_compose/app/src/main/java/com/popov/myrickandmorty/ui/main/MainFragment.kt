@@ -71,7 +71,6 @@ class MainFragment : Fragment() {
 
     fun onItemClick(item: com.popov.myrickandmorty.data.Character) {
         val bundle = Bundle()
-        val item = item
         bundle.putParcelable("MyArg", item)
         findNavController().navigate(R.id.action_mainFragment_to_characterFragment, bundle)
     }
