@@ -29,7 +29,6 @@ import androidx.navigation.fragment.findNavController
 class CharacterFragment : Fragment() {
 
 
-
     companion object {
         fun newInstance() = CharacterFragment()
     }
@@ -41,15 +40,20 @@ class CharacterFragment : Fragment() {
     ): View = ComposeView(requireContext()).apply {
         val character = arguments?.getParcelable<com.popov.myrickandmorty.data.Character>("MyArg")
         setContent {
-            CharacterItemView(character = character!!,
-            findNavController())
+            CharacterItemView(
+                character = character!!,
+                findNavController()
+            )
         }
     }
 }
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-private fun CharacterItemView(character: com.popov.myrickandmorty.data.Character, navigator: NavController) {
+private fun CharacterItemView(
+    character: com.popov.myrickandmorty.data.Character,
+    navigator: NavController
+) {
 
     Card(
         modifier = Modifier
@@ -57,10 +61,12 @@ private fun CharacterItemView(character: com.popov.myrickandmorty.data.Character
             .fillMaxHeight()
             .padding(8.dp)
     ) {
-        GlideImage(model = character.image, contentDescription = null,
+        GlideImage(
+            model = character.image, contentDescription = null,
             Modifier
                 .weight(1.0f)
-                .fillMaxSize())
+                .fillMaxSize()
+        )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -68,7 +74,10 @@ private fun CharacterItemView(character: com.popov.myrickandmorty.data.Character
                 .background(ColorRickAndMorty)
         ) {
             Text(
-                text = character.name, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White
+                text = character.name,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
             )
         }
         Row(
