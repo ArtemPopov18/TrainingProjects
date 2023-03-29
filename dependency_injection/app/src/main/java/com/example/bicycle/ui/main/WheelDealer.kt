@@ -1,7 +1,6 @@
 package com.example.bicycle.ui.main
 
 interface WheelDealer {
-
     fun getWheel(): Wheel
 }
 
