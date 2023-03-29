@@ -1,8 +1,10 @@
 package com.example.bicycle.ui.main
 
-class BicycleFactory(
-    private val frameFactory: FrameFactory,
-    private val wheelDealer: WheelDealer,
+import javax.inject.Inject
+
+class BicycleFactory @Inject constructor(
+    private val frameFactory: BicycleFrameFactory,
+    private val wheelDealer: BicycleWheelDealer,
     ) {
 
     private var bicycleSerialNumber = 0

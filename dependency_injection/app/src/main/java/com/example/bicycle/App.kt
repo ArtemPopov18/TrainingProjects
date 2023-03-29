@@ -22,7 +22,7 @@ class App : Application() {
 
         startKoin {
             modules(module {
-                single { BicycleWheelDealer }
+                single { BicycleWheelDealer() }
                 factory { BicycleFrameFactory() }
                 factory { BicycleFactory(get(), get()) }
             })

@@ -23,13 +23,14 @@ interface DaggerComponent {
 @Module
 class DaggerModule {
 
-    @Provides
-    @Singleton
-    fun wheelDealer() = BicycleWheelDealer
-
-    @Provides
-    fun frameFactory() = BicycleFrameFactory()
-
-    @Provides
-    fun bicycleFactory() = BicycleFactory(frameFactory(), wheelDealer())
+    // можно так а можно на пряму указывать инджект в классе
+//    @Provides
+//    @Singleton
+//    fun wheelDealer() = BicycleWheelDealer
+//
+//    @Provides
+//    fun frameFactory() = BicycleFrameFactory()
+//
+//    @Provides
+//    fun bicycleFactory() = BicycleFactory(frameFactory(), wheelDealer())
 }
